@@ -1,0 +1,22 @@
+3:
+
+Why concurrent execution?
+-Several computations are executing during overlapping time-periods => computations can be done simultaneously without waiting for other computations/processes to finish
+-We can progress several processes at a time and thus possibly speed up other processes which depend on several task to complete
+
+
+Processes: A process is an instance of a program which is being executed. A process may be made up of several threads of execution, executing instructions concurrently
+
+Thread: The smallest sequence of programmed instructions that can be managed independently.
+
+Green Threads: Threads which are scheduled by a virtual machine rather than the actual operating system. GT emulate multithreaded environments without relying on the native OS' capabilities, and thus they can work in environments without native thread support.
+
+Coroutines: Computer program components that generalize subroutines for nonpreemptive multitasking(does not store/restore the state of a process to be resumed from the same point at a later time from one process to another). Coroutines are often used iterators, infinite lists and so on.
+
+pthread_create() : creates a new thread with specified attributes. stores the ID of the created thread if succesful
+threading.thread() : class representing a thread of control. Because pythyon is an interpreted language it cannot execute several processes at once...
+go: Starts a function as a light-weight process
+
+- Global Interpreter Lock prevents multiple threads from executing Python bytecodes at the same time.
+
+-The GOMAXPROCS variable limits/changes the number of operating system threads that can execute user-level Go code simultaneously.
