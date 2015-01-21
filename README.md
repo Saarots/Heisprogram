@@ -1,5 +1,5 @@
-# Heisprogram
-Programkode til Heisprosjektet
+# Øvinger
+Programkode til øvingsopplegg TTK4145
 
 
 Dette er koden til Didrik Henriksen og Eirik Thorbjørnsen sitt Heisprosjekt.
