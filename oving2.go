@@ -1,40 +1,37 @@
 package main
 import (
 	. "fmt" // Using '.' to avoid prefixing functions with their package names
-	// This is probably not a good idea for large projects...
+			// This is probably not a good idea for large projects...
 	"runtime"
-	"time"
+	//"time"
 )
-var i = 0;
-var cs = make(chan int, 1)
-var addDone = make(chan string)
-func Thread1func(){
+var TestVerdi = 0;
 
+func Thread1func(channel chan int){
 	for j:=0; j <1000000; j++{
-		cs <- 1		
+		i := <- channel
 		i++;
-		cs <- 0
+		channel <- i
 	}
-	addDone <- "Done incrementing"
 }
-func Thread2func(){
 
+func Thread2func(channel chan int){
 	for k:=0; k <1000000; k++{
-		cs <- 1
+		i := <- channel  
 		i--;
-		cs <- 0
+		channel <- i
 	}
-	addDone <- "Done decrementing"
 }
 
 func main() {
-	cs <- 0
+	
+	channel := make(chan int, 1)
+	channel <- TestVerdi
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	go Thread1func()
-	go Thread2func()
-	time.Sleep(100*time.Millisecond)
-	println(addDone)	
-	println(addDone)
-	Println(i)
+	go Thread1func(channel)
+	go Thread2func(channel)
+	TestVerdi := <- channel
+	//time.Sleep(100*time.Millisecond)
+	Println(TestVerdi)
 }
