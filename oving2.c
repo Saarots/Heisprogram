@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <stdio.h>
+// gcc -std=gnu99 -Wall -g -o oving2 oving2.c -lpthread
 
 static int i = 0;
 pthread_mutex_t mtx;

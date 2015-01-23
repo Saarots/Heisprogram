@@ -5,33 +5,38 @@ import (
 	"runtime"
 	//"time"
 )
-var TestVerdi = 0;
+var testverdi int = 0;
+var channel = make(chan int, 1)
+var add_done = make(chan int, 1)
+var subtract_done = make(chan int, 1) 
 
-func Thread1func(channel chan int){
-	for j:=0; j <1000000; j++{
-		i := <- channel
-		i++;
-		channel <- i
+
+func adder(){
+	for j:=0; j <999999; j++{ //999999 1000000
+ 		<- channel
+		testverdi++
+		channel <- 1
 	}
+	add_done <- 1
 }
 
-func Thread2func(channel chan int){
+func subtractor(){
 	for k:=0; k <1000000; k++{
-		i := <- channel  
-		i--;
-		channel <- i
+		<- channel  
+		testverdi--
+		channel <- 1
 	}
+	subtract_done <- 1
 }
 
 func main() {
-	
-	channel := make(chan int, 1)
-	channel <- TestVerdi
 	runtime.GOMAXPROCS(runtime.NumCPU())
+	channel <- 1
 
-	go Thread1func(channel)
-	go Thread2func(channel)
-	TestVerdi := <- channel
+	go adder()
+	go subtractor()
+	<- add_done
+	<- subtract_done
 	//time.Sleep(100*time.Millisecond)
-	Println(TestVerdi)
+	Println("Testvariabelen er: ",testverdi)
 }
