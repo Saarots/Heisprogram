@@ -9,7 +9,7 @@ import (
 var channel chan *UDPConn
 
 func NetworkListen(ch chan *UDPConn){
-	udpAddr, erres := ResolveUDPAddr("udp4", "129.241.187.255:20006")
+	udpAddr, erres := ResolveUDPAddr("udp4", "129.241.187.255:20006") // 255 er broadcast
 	if erres != nil {
 		Println("Resolve error during listen procedure")
 		os.Exit(1) 
