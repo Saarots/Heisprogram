@@ -66,7 +66,7 @@ func slave() {
 		Println("Starter å høre")
 		ln.SetReadDeadline(time.Now().Add(3*time.Second))
 		buffer := make([]byte, 1024)
-		_, addr, err := ln.ReadFromUDP(buffer) // test "_" på de andre etter på for de vi ikke trenger
+		n, err := ln.Read(buffer) // test "_" på de andre etter på for de vi ikke trenger
 		if err != nil{
 			masterMode = 1
 			Println("I am Master:", masterMode)
@@ -75,7 +75,7 @@ func slave() {
 		}
 		Println("Printer ut beskjed")
 		var messageRecv []Data
-		json.Unmarshal(buffer[], &messageRecv)
+		json.Unmarshal(buffer[0:n], &messageRecv) // lager i ny struct så er det bare å hente fra den
 		Println("From address: ", addr, "\nMessage: ", messageRecv)
 		// printer ikke rett så må få endra det!!!!
 		//i = messageRecv
